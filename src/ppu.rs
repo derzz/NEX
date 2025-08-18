@@ -32,7 +32,7 @@ impl PPU {
     }
     pub fn new(chr_rom: Vec<u8>, mirroring: Mirroring) -> Self {
         PPU {
-            chr_rom: chr_rom,
+            chr_rom,
             palette_table: [0; 32],
             vram: [0; 2048],
             oam_data: [0; 256],
@@ -43,7 +43,7 @@ impl PPU {
             ctrl: ControlRegister::new(),
             mask: MaskRegister::new(),
             scroll: ScrollRegister::new(),
-            mirroring: mirroring,
+            mirroring,
             scanline: 0,
             cycles: 21, // PPU starts with 3 times the cycles of CPU(which is 7)
             nmi_interrupt: None,
@@ -133,7 +133,6 @@ impl PPU {
 
     // 0x2006 write, PPUADDR
     pub fn write_to_ppu_addr(&mut self, val: u8) {
-        println!("Wrote {:x} to ppu address!", val);
         self.addr.update(val);
     }
 
@@ -211,9 +210,8 @@ impl PPU {
         let vram_index = mirrored_vram - 0x2000; // Bring down to 0x0.. 0x0eff(to vram vector)
         let name_table = vram_index / 0x400; // Determines what nametable to access
         match (&self.mirroring, name_table) {
-            (Mirroring::VERTICAL, 2) | (Mirroring::VERTICAL, 3) => vram_index - 0x800,
-            (Mirroring::HORIZONTAL, 2) => vram_index - 0x400,
-            (Mirroring::HORIZONTAL, 1) => vram_index - 0x400,
+            (Mirroring::VERTICAL, 2) | (Mirroring::VERTICAL, 3)  => vram_index - 0x800,
+            (Mirroring::HORIZONTAL, 1) | (Mirroring::HORIZONTAL, 2) => vram_index - 0x400,
             (Mirroring::HORIZONTAL, 3) => vram_index - 0x800,
             _ => vram_index,
         }
