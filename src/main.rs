@@ -52,7 +52,7 @@ fn main() {
     input_map.insert(Keycode::Space, ControllerButton::SELECT);
 
     // Game loading and CPU setup
-    let game_bytes = std::fs::read("PATH GOES HERE").unwrap();
+    let game_bytes = std::fs::read("roms/smb.nes").unwrap();
     let rom = Rom::new(&game_bytes).unwrap();
 
     let mut frame = Frame::new();

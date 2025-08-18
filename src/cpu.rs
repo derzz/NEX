@@ -145,6 +145,7 @@ impl<'a> CPU<'a> {
         self.sp = STACK_RESET;
         // self.pc = 0xC000; // Used for nestest.nes
         self.pc = self.mem_read_u16(0xFFFC);
+        println!("PC: {:#X}", self.pc);
         self.cycles = 7
     }
 
@@ -241,12 +242,13 @@ impl<'a> CPU<'a> {
             trace!("run: Flags [NV-BDIZC]: {:08b}", self.flags.bits());
             trace!("The value of 7F is {:4X}", self.mem_read(0x7F));
             self.reset_cycles();
+            // println!("{:4X}", self.pc);
             let op = self.mem_read(self.pc);
             debug!("op is {:#4X}", op);
 
             let highnibble = op >> 4;
             let lownibble = op & 0x0F;
-            //println!(
+            // println!(
             //     "run: Highnibble is {:#x} and lownibble is {:#x}",
             //     highnibble, lownibble
             // );
@@ -261,6 +263,7 @@ impl<'a> CPU<'a> {
             match op {
                 // Special and illegal opcodes
                 0x0 => {
+                    println!("executing break!");
                     self.brk();
                     return;
                 }

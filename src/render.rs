@@ -135,14 +135,14 @@ pub fn render(ppu: &PPU, frame: &mut Frame) {
     );
 
   if scroll_x > 0 {
-        render_name_table(ppu, frame, 
-            second_nametable, 
+        render_name_table(ppu, frame,
+            second_nametable,
             Rect::new(0, 0, scroll_x, 240),
             (256 - scroll_x) as isize, 0
         );
     } else if scroll_y > 0 {
-        render_name_table(ppu, frame, 
-            second_nametable, 
+        render_name_table(ppu, frame,
+            second_nametable,
             Rect::new(0, 0, 256, scroll_y),
             0, (240 - scroll_y) as isize
         );

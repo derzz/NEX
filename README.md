@@ -1,4 +1,4 @@
-# NEXie(A basic NES Emulator!)
+# NEX(A basic NES Emulator!)
 This project was made in Rust and emulates the Nintendo Entertainment System including the CPU(MOS Technology 6502) and PPU.
 
 The CPU has been tested with `nestest` by kevtris and compared against the Nintendulator log(Look in trace.rs to see how the trace is created).
